@@ -16,5 +16,9 @@
     "name": "ouyang",
     "email": "ouyang@droidman.cn",
     "url": "https://www.droidman.cn"
+  },
+  "repository": {
+    "url": "https://github.com/DragonplusOuyang/cn.droidman.firstpack.git",
+    "type": "git"
   }
 }
