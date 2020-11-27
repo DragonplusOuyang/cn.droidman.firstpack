@@ -1,6 +1,6 @@
 {
   "name": "cn.droidman.firstpack",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "displayName": "Package firstpack",
   "description": "This is an example package for local pack",
   "unity": "2019.4",
@@ -15,9 +15,9 @@
     "Animation"
   ],
   "author": {
-    "name": "ouyang",
+    "name": "DragonplusOuyang",
     "email": "ouyang@droidman.cn",
-    "url": "https://www.droidman.cn"
+    "url": "https://github.com/DragonplusOuyang"
   },
   "repository": {
     "url": "https://github.com/DragonplusOuyang/cn.droidman.firstpack.git",
