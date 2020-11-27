@@ -1,0 +1,13 @@
+{
+  "name": "cn.droidman.firstpack.Editor",
+  "references": [
+    "cn.droidman.firstpack"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": []
+}
