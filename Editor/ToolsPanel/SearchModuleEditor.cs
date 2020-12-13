@@ -11,11 +11,11 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using OhMyFramework.Editor;
 
 
-[BerryPanelGroup ("Readme")]
-[BerryPanelTab ("Readme", "BombMixIcon1", 0)]
-public class DocMetaEditor : MetaEditor<MonoBehaviour> {
+[OhMyFrameworkPanelTab ("Search", "BombMixIcon1", 0)]
+public class SearchModuleEditor : ModuleEditor<MonoBehaviour> {
     #region Icons
     public static Texture2D slotIcon;
     #endregion
@@ -73,25 +73,25 @@ public class DocMetaEditor : MetaEditor<MonoBehaviour> {
         // }
         //上左右布局
         using (new GUIHelper.Horizontal (GUILayout.ExpandWidth (true), GUILayout.Height (50))) {
-//            if (GUILayout.Button ("button3")) {
-//
-//            };
-            EditorGUILayout.TextField("readme：import");
+            EditorGUILayout.TextField("input keywords");
+            if (GUILayout.Button ("Search")) {
+                Debug.Log("s");
+            };
         }
         using (new GUIHelper.Horizontal (GUILayout.ExpandWidth (true), GUILayout.ExpandHeight (true))) {
-            using (new GUIHelper.Vertical (Styles.berryArea, GUILayout.Width (200), GUILayout.ExpandHeight (true))) {
-//                if (GUILayout.Button ("button3")) {
-//
-//                };
-                GUILayout.TextField("readme：import");
-                GUILayout.TextArea("readme：import");
-            }
-            using (new GUIHelper.Vertical (Styles.area, GUILayout.ExpandHeight (true))) {
-//                   if (GUILayout.Button ("button3")) {
-//
-//                    }; 
-                GUILayout.TextArea("readme：import");
-            }
+//            using (new GUIHelper.Vertical (Styles.berryArea, GUILayout.Width (200), GUILayout.ExpandHeight (true))) {
+////                if (GUILayout.Button ("button3")) {
+////
+////                };
+//                GUILayout.TextField("readme：import");
+//                GUILayout.TextArea("readme：import");
+//            }
+//            using (new GUIHelper.Vertical (Styles.area, GUILayout.ExpandHeight (true))) {
+////                   if (GUILayout.Button ("button3")) {
+////
+////                    }; 
+                GUILayout.TextArea("search result is here");
+//            }
         }
 
         // 分栏布局

@@ -10,11 +10,11 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using OhMyFramework.Editor;
 
-
-[BerryPanelGroup ("Tools")]
-[BerryPanelTab ("Tool Editor", "BombMixIcon", 5)]
-public class CommonMetaEditor : MetaEditor<MonoBehaviour> {
+[OhMyFrameworkPanelGroup ("Group2")]
+[OhMyFrameworkPanelTab ("Tool Editor", "BombMixIcon", 5)]
+public class CommonModuleEditor : ModuleEditor<MonoBehaviour> {
     #region Icons
     public static Texture2D slotIcon;
     #endregion
@@ -174,8 +174,8 @@ public class CommonMetaEditor : MetaEditor<MonoBehaviour> {
     /// </summary>
     void LoadEditors()
     {
-        Type _interface = typeof(IMetaEditor); //接口
-        Type _base_type = typeof(MetaEditor<>); //基类（可范型）
+        Type _interface = typeof(IModuleEditor); //接口
+        Type _base_type = typeof(ModuleEditor<>); //基类（可范型）
 
         List<Type> types = new List<Type>();
         //获取当前domain的所有Assembly
@@ -196,13 +196,13 @@ public class CommonMetaEditor : MetaEditor<MonoBehaviour> {
         }
 
         //移除没有加属性注解的 MetaEditor 子类
-        types.RemoveAll(x => x.GetCustomAttributes(true).FirstOrDefault(y => y is BerryPanelTabAttribute) == null);
+        types.RemoveAll(x => x.GetCustomAttributes(true).FirstOrDefault(y => y is OhMyFrameworkPanelTabAttribute) == null);
 
         // 按优先级排序
         types.Sort((Type a, Type b) =>
         {
-            BerryPanelTabAttribute _a = (BerryPanelTabAttribute)a.GetCustomAttributes(true).FirstOrDefault(x => x is BerryPanelTabAttribute);
-            BerryPanelTabAttribute _b = (BerryPanelTabAttribute)b.GetCustomAttributes(true).FirstOrDefault(x => x is BerryPanelTabAttribute);
+            OhMyFrameworkPanelTabAttribute _a = (OhMyFrameworkPanelTabAttribute)a.GetCustomAttributes(true).FirstOrDefault(x => x is OhMyFrameworkPanelTabAttribute);
+            OhMyFrameworkPanelTabAttribute _b = (OhMyFrameworkPanelTabAttribute)b.GetCustomAttributes(true).FirstOrDefault(x => x is OhMyFrameworkPanelTabAttribute);
             return _a.Priority.CompareTo(_b.Priority);
         });
 
@@ -210,7 +210,7 @@ public class CommonMetaEditor : MetaEditor<MonoBehaviour> {
         foreach (Type editor in types)
         {
             //分组，没有加BerryPanelGroupAttribute的放在“” 中
-            BerryPanelGroupAttribute attr = (BerryPanelGroupAttribute)editor.GetCustomAttributes(true).FirstOrDefault(x => x is BerryPanelGroupAttribute);
+            OhMyFrameworkPanelGroupAttribute attr = (OhMyFrameworkPanelGroupAttribute)editor.GetCustomAttributes(true).FirstOrDefault(x => x is OhMyFrameworkPanelGroupAttribute);
             string group = attr != null ? attr.Group : "";
             if (!editors.ContainsKey(group))
                 editors.Add(group, new List<Type>());

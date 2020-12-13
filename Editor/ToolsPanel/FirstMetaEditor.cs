@@ -1,8 +1,7 @@
 ﻿using UnityEditor.IMGUI.Controls;
 using UnityEngine;
-
 using UnityEditor;
-
+using OhMyFramework.Editor;
 using System;
 using System.IO;
 using System.Reflection;
@@ -13,9 +12,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 
-[BerryPanelGroup ("Tools1")]
-[BerryPanelTab ("Tool Editor1", "BombMixIcon1", 5)]
-public class FirstMetaEditor : MetaEditor<MonoBehaviour> {
+[OhMyFrameworkPanelGroup ("Group1")]
+[OhMyFrameworkPanelTab ("Tool Editor1", "BombMixIcon1", 5)]
+public class FirstModuleEditor : ModuleEditor<MonoBehaviour> {
     #region Icons
     public static Texture2D slotIcon;
     #endregion

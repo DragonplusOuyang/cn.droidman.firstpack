@@ -14,9 +14,9 @@ using System.Text.RegularExpressions;
 using OhMyFramework.Editor;
 
 
-[BerryPanelGroup ("Tools3")]
-[BerryPanelTab ("Tool Editor3", "BombMixIcon3", 3)]
-public class ThirdMetaEditor : MetaEditor<MonoBehaviour> {
+[OhMyFrameworkPanelGroup ("Group1")]
+[OhMyFrameworkPanelTab ("Tool Editor3", "BombMixIcon3", 3)]
+public class ThirdModuleEditor : ModuleEditor<MonoBehaviour> {
     #region Icons
     public static Texture2D slotIcon;
     #endregion

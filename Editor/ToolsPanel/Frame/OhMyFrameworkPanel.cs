@@ -32,7 +32,7 @@ public class OhMyFrameworkPanel : EditorWindow
         style_IsInitialized = true;
     }
 
-    public BerryPanelTabAttribute editorAttribute = null;
+    public OhMyFrameworkPanelTabAttribute editorAttribute = null;
     Color selectionColor;
     Color bgColor;
 
@@ -93,20 +93,20 @@ public class OhMyFrameworkPanel : EditorWindow
     {
         if (!save_CurrentEditor.IsEmpty())
         {
-            Type _interface = typeof(IMetaEditor);
-            Type _base_type = typeof(MetaEditor<>);
+            Type _interface = typeof(IModuleEditor);
+            Type _base_type = typeof(ModuleEditor<>);
             string editorName = save_CurrentEditor.String;
             Type savedEditor = editors.Values.SelectMany(x => x).FirstOrDefault(x => x.FullName == editorName);
             if (_interface.IsAssignableFrom(savedEditor) && savedEditor != _interface && savedEditor != _base_type)
             {
-                Show((IMetaEditor)Activator.CreateInstance(savedEditor));
+                Show((IModuleEditor)Activator.CreateInstance(savedEditor));
                 return;
             }
         }
 
-        Type defaultEditor = editors.Values.SelectMany(x => x).FirstOrDefault(x => x.GetCustomAttributes(true).FirstOrDefault(y => y is BerryPanelTabAttribute) != null);
+        Type defaultEditor = editors.Values.SelectMany(x => x).FirstOrDefault(x => x.GetCustomAttributes(true).FirstOrDefault(y => y is OhMyFrameworkPanelTabAttribute) != null);
         if (defaultEditor != null)
-            Show((IMetaEditor)Activator.CreateInstance(defaultEditor));
+            Show((IModuleEditor)Activator.CreateInstance(defaultEditor));
     }
 
     Dictionary<string, List<Type>> editors = new Dictionary<string, List<Type>>();
@@ -115,8 +115,8 @@ public class OhMyFrameworkPanel : EditorWindow
     /// </summary>
     void LoadEditors()
     {
-        Type _interface = typeof(IMetaEditor); //接口
-        Type _base_type = typeof(MetaEditor<>); //基类（可范型）
+        Type _interface = typeof(IModuleEditor); //接口
+        Type _base_type = typeof(ModuleEditor<>); //基类（可范型）
 
         List<Type> types = new List<Type>();
         //获取当前domain的所有Assembly
@@ -137,13 +137,13 @@ public class OhMyFrameworkPanel : EditorWindow
         }
 
         //移除没有加属性注解的 MetaEditor 子类
-        types.RemoveAll(x => x.GetCustomAttributes(true).FirstOrDefault(y => y is BerryPanelTabAttribute) == null);
+        types.RemoveAll(x => x.GetCustomAttributes(true).FirstOrDefault(y => y is OhMyFrameworkPanelTabAttribute) == null);
 
         // 按优先级排序
         types.Sort((Type a, Type b) =>
         {
-            BerryPanelTabAttribute _a = (BerryPanelTabAttribute)a.GetCustomAttributes(true).FirstOrDefault(x => x is BerryPanelTabAttribute);
-            BerryPanelTabAttribute _b = (BerryPanelTabAttribute)b.GetCustomAttributes(true).FirstOrDefault(x => x is BerryPanelTabAttribute);
+            OhMyFrameworkPanelTabAttribute _a = (OhMyFrameworkPanelTabAttribute)a.GetCustomAttributes(true).FirstOrDefault(x => x is OhMyFrameworkPanelTabAttribute);
+            OhMyFrameworkPanelTabAttribute _b = (OhMyFrameworkPanelTabAttribute)b.GetCustomAttributes(true).FirstOrDefault(x => x is OhMyFrameworkPanelTabAttribute);
             return _a.Priority.CompareTo(_b.Priority);
         });
 
@@ -151,7 +151,7 @@ public class OhMyFrameworkPanel : EditorWindow
         foreach (Type editor in types)
         {
             //分组，没有加BerryPanelGroupAttribute的放在“” 中
-            BerryPanelGroupAttribute attr = (BerryPanelGroupAttribute)editor.GetCustomAttributes(true).FirstOrDefault(x => x is BerryPanelGroupAttribute);
+            OhMyFrameworkPanelGroupAttribute attr = (OhMyFrameworkPanelGroupAttribute)editor.GetCustomAttributes(true).FirstOrDefault(x => x is OhMyFrameworkPanelGroupAttribute);
             string group = attr != null ? attr.Group : "";
             if (!editors.ContainsKey(group))
                 editors.Add(group, new List<Type>());
@@ -161,8 +161,8 @@ public class OhMyFrameworkPanel : EditorWindow
 
     Color defalutColor;
     public Vector2 editorScroll, tabsScroll = new Vector2();
-    IMetaEditor current_editor = null;
-    public IMetaEditor CurrentEditor
+    IModuleEditor current_editor = null;
+    public IModuleEditor CurrentEditor
     {
         get
         {
@@ -246,14 +246,14 @@ public class OhMyFrameworkPanel : EditorWindow
 
             foreach (Type editor in editors[group])
             {
-                BerryPanelTabAttribute attr = (BerryPanelTabAttribute)editor.GetCustomAttributes(true).FirstOrDefault(x => x is BerryPanelTabAttribute);
+                OhMyFrameworkPanelTabAttribute attr = (OhMyFrameworkPanelTabAttribute)editor.GetCustomAttributes(true).FirstOrDefault(x => x is OhMyFrameworkPanelTabAttribute);
                 if (attr != null && DrawTabButton(attr))
-                    Show((IMetaEditor)Activator.CreateInstance(editor));
+                    Show((IModuleEditor)Activator.CreateInstance(editor));
             }
         }
     }
 
-    bool DrawTabButton(BerryPanelTabAttribute tabAttribute)
+    bool DrawTabButton(OhMyFrameworkPanelTabAttribute tabAttribute)
     {
         bool result = false;
         if (tabAttribute != null)
@@ -289,7 +289,7 @@ public class OhMyFrameworkPanel : EditorWindow
     PrefVariable save_CurrentEditor = new PrefVariable("BerryPanel_CurrentEditor");
     public static Rect currectEditorRect = new Rect();
 
-    public void Show(IMetaEditor editor)
+    public void Show(IModuleEditor editor)
     {
         EditorGUI.FocusTextInControl("");
         if (editor.Initialize())
@@ -297,7 +297,7 @@ public class OhMyFrameworkPanel : EditorWindow
             current_editor = editor;
             save_CurrentEditor.String = editor.GetType().FullName;
 
-            BerryPanelTabAttribute attribute = (BerryPanelTabAttribute)editor.GetType().GetCustomAttributes(true).FirstOrDefault(x => x is BerryPanelTabAttribute);
+            OhMyFrameworkPanelTabAttribute attribute = (OhMyFrameworkPanelTabAttribute)editor.GetType().GetCustomAttributes(true).FirstOrDefault(x => x is OhMyFrameworkPanelTabAttribute);
             editorAttribute = attribute;
 
             editorRender = editor.OnGUI;
@@ -306,7 +306,7 @@ public class OhMyFrameworkPanel : EditorWindow
 
 
 
-    public static IMetaEditor GetCurrentEditor()
+    public static IModuleEditor GetCurrentEditor()
     {
         if (instance == null)
             return null;
@@ -317,7 +317,7 @@ public class OhMyFrameworkPanel : EditorWindow
     {
         Type editor = editors.SelectMany(x => x.Value).FirstOrDefault(x => x.Name == editorName);
         if (editor != null)
-            Show((IMetaEditor)Activator.CreateInstance(editor));
+            Show((IModuleEditor)Activator.CreateInstance(editor));
     }
 
 
