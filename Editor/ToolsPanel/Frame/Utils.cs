@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
-using Yurowm.GameCore;
+using OhMyFramework.Editor;
 
 public class EditorCoroutine {
     public static EditorCoroutine start(IEnumerator _routine) {
@@ -54,7 +54,7 @@ public abstract class MetaEditor<T> : IMetaEditor where T : MonoBehaviour {
     public abstract bool Initialize();
 
     public static void Repaint() {
-        BerryPanel.RepaintAll();
+        OhMyFrameworkPanel.RepaintAll();
     }
 
     public abstract void OnLostFoce();

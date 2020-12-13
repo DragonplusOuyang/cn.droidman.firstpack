@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace Yurowm.GameCore
+namespace OhMyFramework.Editor
 {
 
     public static class Utils

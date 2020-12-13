@@ -86,7 +86,7 @@ public static class Styles {
 
             separator = new GUIStyle(area);
             separator.normal.background = EditorIcons.GetIcon("Separator");
-            separator.border = new RectOffset(2, 2, 2, 2);
+            separator.border = new RectOffset(1, 1, 1, 1);
             separator.margin = new RectOffset(0, 0, 0, 0);
             separator.padding = new RectOffset(0, 0, 0, 0);
 

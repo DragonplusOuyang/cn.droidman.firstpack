@@ -4,18 +4,20 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using System.Reflection;
+using OhMyFramework.Editor;
+
 /// <summary>
 /// 编辑器界面
 /// </summary>
-public class BerryPanel : EditorWindow
+public class OhMyFrameworkPanel : EditorWindow
 {
-    public static BerryPanel instance = null;
+    public static OhMyFrameworkPanel instance = null;
 
     Texture BPLogo;
     static bool style_IsInitialized = false;
     static GUIStyle style_Exeption;
     static GUIStyle tabButtonStyle;
-
+    private GUIHelper.LayoutSplitter splitterH; //分栏控件
     void InitializeStyles()
     {
         style_Exeption = new GUIStyle(GUI.skin.label);
@@ -34,13 +36,13 @@ public class BerryPanel : EditorWindow
     Color selectionColor;
     Color bgColor;
 
-    [MenuItem("Window/Berry Panel &B")]
-    public static BerryPanel CreateBerryPanel()
+    [MenuItem("Window/OhMyFramework Panel &F")]
+    public static OhMyFrameworkPanel CreateBerryPanel()
     {
-        BerryPanel window;
+        OhMyFrameworkPanel window;
         if (instance == null)
         {
-            window = GetWindow<BerryPanel>();
+            window = GetWindow<OhMyFrameworkPanel>();
             window.Show();
             window.Init();
         }
@@ -75,7 +77,7 @@ public class BerryPanel : EditorWindow
 
         // Styles.Initialize();
 
-        titleContent.text = "Berry Panel";
+        titleContent.text = "OhMyFramework Panel";
         BPLogo = EditorIcons.GetIcon("BPLogo");
 
         LoadEditors();
@@ -190,7 +192,7 @@ public class BerryPanel : EditorWindow
         defalutColor = GUI.backgroundColor;
         using (new GUIHelper.Horizontal(GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true)))
         {
-            using (new GUIHelper.Vertical(Styles.berryArea, GUILayout.Width(180), GUILayout.ExpandHeight(true)))
+            using (new GUIHelper.Vertical(Styles.berryArea, GUILayout.Width(256), GUILayout.ExpandHeight(true)))
             {
                 tabsScroll = EditorGUILayout.BeginScrollView(tabsScroll);
                 DrawTabs();
@@ -220,6 +222,7 @@ public class BerryPanel : EditorWindow
                 EditorGUILayout.EndScrollView();
             }
         }
+
         GUILayout.Label(string.Format("Simple Rules Tools Panel\n@Copyright 2015 - {0} by Droidman",
             DateTime.Now.Year), Styles.centeredMiniLabel, GUILayout.ExpandWidth(true));
     }

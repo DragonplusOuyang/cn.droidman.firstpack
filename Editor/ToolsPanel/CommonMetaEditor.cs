@@ -1,6 +1,5 @@
 ﻿using UnityEditor.IMGUI.Controls;
 using UnityEngine;
-using Yurowm.GameCore;
 using UnityEditor;
 
 using System;
@@ -152,8 +151,8 @@ public class CommonMetaEditor : MetaEditor<MonoBehaviour> {
         // };
        
          
-        splitterH = new GUIHelper.LayoutSplitter (OrientationLine.Horizontal, OrientationLine.Vertical, new float[2] { 200, 300 });
-        splitterH.drawCursor = x => GUI.Box (x, "", Styles.separator);
+//        splitterH = new GUIHelper.LayoutSplitter (OrientationLine.Horizontal, OrientationLine.Vertical, new float[2] { 200, 300 });
+//        splitterH.drawCursor = x => GUI.Box (x, "", Styles.separator);
         #endregion
 
         #region Icons

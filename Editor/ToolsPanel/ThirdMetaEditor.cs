@@ -1,6 +1,6 @@
 ﻿using UnityEditor.IMGUI.Controls;
 using UnityEngine;
-using Yurowm.GameCore;
+
 using UnityEditor;
 
 using System;
@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using OhMyFramework.Editor;
 
 
 [BerryPanelGroup ("Tools3")]
